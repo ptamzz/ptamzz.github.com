@@ -5,72 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Pritam Pebam</title>
 
+
+    <!--  Essential META Tags -->
+    <meta property="og:title" content="Pritam Pebam">
+    <meta property="og:type" content="Portfolio" />
+    <meta property="og:image" content="">
+    <meta property="og:url" content="http://ptamzz.com">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!--  Non-Essential, But Recommended -->
+    <meta property="og:description" content="Pritam Peba, Product Designer Based in San Francisco, California">
+    <meta property="og:site_name" content="ptamzz">
+    <meta name="twitter:image:alt" content="">
+
+    <!--  Non-Essential, But Required for Analytics -->
+    <meta name="twitter:site" content="@ptamzz">
+
+    <link rel="icon" type="image/x-icon" href="/asset/favicon.jpg">
+
     <!-- update the version number as needed -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+
+
 
 
     <style media="screen">
 
       @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-        html, body { 
-          
-          margin: 0;
-          height: 100%;
-          overflow: hidden;
-          font-family: 'Roboto' !important; 
-          color: white;
-          font-size: 9px;
-        }
+        html, body { margin: 0; height: 100%; overflow: hidden; font-family: 'Roboto' !important; color: white; font-size: 9px; }
+        #magic { position: fixed; width: 100%; height: 100vh; display: block; top: 0; left: 0; z-index: -9999; }
 
-        #magic {
-
-          position: fixed;
-          width: 100%;
-          height: 100vh;
-          display: block;
-          top: 0;
-          left: 0;
-          z-index: -9999;
-        }
-
-        .playground{
-
-          position: fixed;
-          width: 100%;
-          height: 100vh;
-          display: block;
-          top: 0;
-          left: 0;
-          display: flex;
-          flex-wrap: nowrap;
-          flex-direction: column;
-          justify-content: flex-end;
-          align-items: center;
-
-        }
-        .bottomPosition{
-
-          text-align: center;
-          margin-bottom: 50px;
-          
-        }
-        .minText{
-          
-          font-size: 14px;
-        }
-
-        a {
-          color: white;
-          font-size: 12px;
-          text-decoration: none;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-        }
-
-
+        .playground{ position: fixed; width: 100%; height: 100vh; display: block; top: 0; left: 0; display: flex; flex-wrap: nowrap; flex-direction: column; justify-content: flex-end; align-items: center; }
+        .bottomPosition{ text-align: center; margin-bottom: 50px; }
+          .minText{ font-size: 14px; }
+          a { color: white; font-size: 12px; text-decoration: none; }
+        .logo { width: 50px; height: 50px;}
     </style>
 
 
@@ -81,12 +50,10 @@
       varying vec3 vColor;
 
       void main() {
-
         vColor = customColor;
         vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
         gl_PointSize = size * ( 300.0 / -mvPosition.z );
         gl_Position = projectionMatrix * mvPosition;
-
       }
 
     </script>
@@ -141,31 +108,24 @@
     }
 
     bindEvents(){
-
       window.addEventListener( 'resize', this.onWindowResize.bind( this ));
-      
     }
 
     setup(){ 
-
-      this.createParticles = new CreateParticles( this.scene, this.font,             this.particle, this.camera, this.renderer );
+      this.createParticles = new CreateParticles( this.scene, this.font, this.particle, this.camera, this.renderer );
     }
 
     render() {
-      
        this.createParticles.render()
        this.renderer.render( this.scene, this.camera )
     }
 
     createCamera() {
-
       this.camera = new THREE.PerspectiveCamera( 65, this.container.clientWidth /  this.container.clientHeight, 1, 10000 );
       this.camera.position.set( 0,0, 100 );
-
     }
 
     createRenderer() {
-
       this.renderer = new THREE.WebGLRenderer();
       this.renderer.setSize( this.container.clientWidth, this.container.clientHeight );
 
@@ -175,22 +135,18 @@
       this.container.appendChild( this.renderer.domElement );
 
       this.renderer.setAnimationLoop(() => { this.render() })
-
     }
 
     onWindowResize(){
-
       this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize( this.container.clientWidth, this.container.clientHeight );
-
     }
   }
 
   class CreateParticles {
     
     constructor( scene, font, particleImg, camera, renderer ) {
-      
       this.scene = scene;
       this.font = font;
       this.particleImg = particleImg;
@@ -205,12 +161,11 @@
       this.buttom = false;
 
       this.data = {
-
         text: 'PRITAM\nPEBAM',
         amount: 1500,
-        particleSize: 1,
-        particleColor: 0xffffff,
-        textSize: 16,
+        particleSize: 1.5,
+        particleColor: 0xFF5349,
+        textSize: 14,
         area: 250,
         ease: .05,
       }
@@ -222,25 +177,20 @@
 
 
     setup(){
-
       const geometry = new THREE.PlaneGeometry( this.visibleWidthAtZDepth( 100, this.camera ), this.visibleHeightAtZDepth( 100, this.camera ));
-      const material = new THREE.MeshBasicMaterial( { color: 0x00ff00, transparent: true } );
+      const material = new THREE.MeshBasicMaterial( { color: 0xFF5349, transparent: true } );
       this.planeArea = new THREE.Mesh( geometry, material );
       this.planeArea.visible = false;
       this.createText();
-
     }
 
     bindEvents() {
-
       document.addEventListener( 'mousedown', this.onMouseDown.bind( this ));
       document.addEventListener( 'mousemove', this.onMouseMove.bind( this ));
       document.addEventListener( 'mouseup', this.onMouseUp.bind( this ));
-      
     }
 
     onMouseDown(){
-      
       this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
       this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
@@ -253,24 +203,19 @@
       const pos = this.particles.geometry.attributes.position;
       this.buttom = true;
       this.data.ease = .01;
-      
     }
 
     onMouseUp(){
-
       this.buttom = false;
       this.data.ease = .05;
     }
 
     onMouseMove( ) { 
-
         this.mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
         this.mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
     }
 
     render( level ){ 
-
       const time = ((.001 * performance.now())%12)/12;
       const zigzagTime = (1 + (Math.sin( time * 2 * Math.PI )))/6;
 
@@ -332,7 +277,7 @@
 
               }
 
-            }else{
+            } else {
             
               if( mouseDistance < this.data.area ){
 
@@ -403,13 +348,9 @@
       let holeShapes = [];
 
       for ( let q = 0; q < shapes.length; q ++ ) {
-
         let shape = shapes[ q ];
-
         if ( shape.holes && shape.holes.length > 0 ) {
-
           for ( let  j = 0; j < shape.holes.length; j ++ ) {
-
             let  hole = shape.holes[ j ];
             holeShapes.push( hole );
           }
@@ -422,15 +363,10 @@
       let sizes = [];
             
       for ( let  x = 0; x < shapes.length; x ++ ) {
-
         let shape = shapes[ x ];
-
         const amountPoints = ( shape.type == 'Path') ? this.data.amount/2 : this.data.amount;
-
         let points = shape.getSpacedPoints( amountPoints ) ;
-
         points.forEach( ( element, z ) => {
-              
           const a = new THREE.Vector3( element.x, element.y, 0 );
           thePoints.push( a );
           colors.push( this.colorChange.r, this.colorChange.g, this.colorChange.b);
@@ -448,7 +384,7 @@
       const material = new THREE.ShaderMaterial( {
 
         uniforms: {
-          color: { value: new THREE.Color( 0xffffff ) },
+          color: { value: new THREE.Color( 0xFF5349 ) },
           pointTexture: { value: this.particleImg }
         },
         vertexShader: document.getElementById( 'vertexshader' ).textContent,
@@ -468,7 +404,6 @@
     }
 
     visibleHeightAtZDepth ( depth, camera ) {
-
       const cameraOffset = camera.position.z;
       if ( depth < cameraOffset ) depth -= cameraOffset;
       else depth += cameraOffset;
@@ -479,37 +414,24 @@
     }
 
     visibleWidthAtZDepth( depth, camera ) {
-
       const height = this.visibleHeightAtZDepth( depth, camera );
       return height * camera.aspect;
-
     }
 
     distance (x1, y1, x2, y2){
-       
         return Math.sqrt(Math.pow((x1 - x2), 2) + Math.pow((y1 - y2), 2));
     }
   }
 
 </script>
-
   </head>
   <body>
-    
-
-
-
-
-<div id="magic"></div>
-<div class="playground">
-  <div class="bottomPosition">
-      <h1 class="special">Product Designer</h1>
-      <a href="https://x.com/ptamzz" target="_blank"><span class="minText">@ptamzz</span></a>
-  </div>
-</div>
-
-
-
-
+    <div id="magic"></div>
+    <div class="playground">
+      <div class="bottomPosition">
+          <h1 class="special">Product Designer</h1>
+          <a href="https://x.com/ptamzz" target="_blank"><span class="minText">@ptamzz</span></a>
+      </div>
+    </div>
   </body>
 </html>
